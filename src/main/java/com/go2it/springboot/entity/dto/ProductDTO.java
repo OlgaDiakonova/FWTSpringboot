@@ -1,9 +1,9 @@
 package com.go2it.springboot.entity.dto;
 
-public class ProductDto {
+public class ProductDTO {
     private String name;
 
-    public ProductDto() {
+    public ProductDTO() {
     }
 
     public String getName() {

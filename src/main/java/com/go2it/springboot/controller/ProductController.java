@@ -1,7 +1,7 @@
 package com.go2it.springboot.controller;
 
 import com.go2it.springboot.entity.Product;
-import com.go2it.springboot.entity.dto.ProductDto;
+import com.go2it.springboot.entity.dto.ProductDTO;
 import com.go2it.springboot.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ResponseEntity<String> createProduct(@RequestBody ProductDto body){
+    public ResponseEntity<String> createProduct(@RequestBody ProductDTO body){
         productService.save(body);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
