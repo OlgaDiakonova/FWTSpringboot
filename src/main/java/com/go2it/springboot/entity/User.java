@@ -1,6 +1,8 @@
 package com.go2it.springboot.entity;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -17,6 +19,12 @@ public class User {
     @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> customerOrders;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Order> employeeOrders;
 
     public User() {
     }
@@ -83,5 +91,36 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getUser_id() == user.getUser_id() &&
+                getFirst_name().equals(user.getFirst_name()) &&
+                getLast_name().equals(user.getLast_name());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUser_id(), getFirst_name(), getLast_name());
+    }
+
+        public List<Order> getCustomerOrders() {
+        return customerOrders;
+    }
+
+    public void setCustomerOrders(List<Order> customerOrders) {
+        this.customerOrders = customerOrders;
+    }
+
+    public List<Order> getEmployeeOrders() {
+        return employeeOrders;
+    }
+
+    public void setEmployeeOrders(List<Order> employeeOrders) {
+        this.employeeOrders = employeeOrders;
     }
 }

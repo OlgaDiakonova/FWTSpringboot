@@ -46,6 +46,7 @@ public class UserController {
     public String showUserLogin(@PathVariable String id) {
         UserDTO userDto = new UserDTO();
         String userFullName = "";
+//        Optional<User> user = userService.findById(Integer.valueOf(id));
         userService.findById(Integer.valueOf(id)).ifPresent(user -> {
             userDto.setFirst_name(user.getFirst_name());
             userDto.setLast_name(user.getLast_name());
@@ -61,4 +62,6 @@ public class UserController {
         return htmlText;
 
     }
+
+
 }
