@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private IRoleService roleService;
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity<String> createUser(@RequestBody String userJson) throws IOException {
 
         if (userJson == null || userJson.isEmpty()) {
