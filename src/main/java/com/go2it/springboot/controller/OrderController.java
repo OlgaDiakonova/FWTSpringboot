@@ -50,12 +50,12 @@ public class OrderController {
             orderDto.setOrder_date(order.getOrder_date());
             orderDto.setOrder_price(order.getOrder_price());
             orderDto.setOrder_id(order.getOrder_id());
-            orderDto.setCustomer(order.getCustomer());
+            orderDto.setCustomerName(order.getCustomer().getFirst_name() + " " + order.getCustomer().getLast_name());
         });
 
         String orderInfo = "<div style=\"text-align:left;\">" + "<h1>Order #: " + orderDto.getOrder_id() + " " +
                 "ordered at " + orderDto.getOrder_date() +  " " +
-                "ordered by " + orderDto.getCustomer().getFirst_name() + " " +
+                "ordered by " + orderDto.getCustomerName() + " " +
                 "order price is " + orderDto.getOrder_price() + "</h1>" + "</div>";
 
         String htmlText = "<div style=\"text-align:center;\">" + "<h1>Order information: </h1>" + "</div>" + orderInfo;
@@ -72,19 +72,23 @@ public class OrderController {
 
         userService.findById(Integer.valueOf(id)).ifPresent(customer -> cust.set(customer));
 
-        for (Order item : orderService.findOrderByCustomer(cust.get())) {
-            OrderDTO tempOrderDto = new OrderDTO();
-            tempOrderDto.setOrder_date(item.getOrder_date());
-            tempOrderDto.setOrder_price(item.getOrder_price());
-            tempOrderDto.setOrder_id(item.getOrder_id());
-            tempOrderDto.setCustomer(item.getCustomer());
-            orderDtoList.add(tempOrderDto);
-        }
+        if (cust.get().getUser_id() != 0) {
+            for (Order item : cust.get().getCustomerOrders()) {
+                OrderDTO tempOrderDto = new OrderDTO();
+                tempOrderDto.setOrder_date(item.getOrder_date());
+                tempOrderDto.setOrder_price(item.getOrder_price());
+                tempOrderDto.setOrder_id(item.getOrder_id());
+                tempOrderDto.setCustomerName(item.getCustomer().getFirst_name() + " " + item.getCustomer().getLast_name());
+                orderDtoList.add(tempOrderDto);
+            }
 
-        for (OrderDTO orderDto : orderDtoList) {
-            orderInfo += "<li>" + orderDto.getOrder_id() + " " +
-                    orderDto.getOrder_date() + " " +
-                    orderDto.getOrder_price() + "</li>";
+            for (OrderDTO orderDto : orderDtoList) {
+                orderInfo += "<li>" + orderDto.getOrder_id() + " " +
+                        orderDto.getOrder_date() + " " +
+                        orderDto.getOrder_price() + "</li>";
+            }
+        } else {
+            orderInfo = "There are no orders for this customer yet!";
         }
 
         String htmlText = "<div style=\"text-align:center;\">" + "<h1>Order information: </h1>" + "</div>" + orderInfo;

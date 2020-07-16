@@ -17,8 +17,8 @@ public class OrderDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate order_date;
     private double order_price;
-    private User customer;
-    private User employee;
+    private String customerName;
+    private String employeeName;
 
     public OrderDTO() {
     }
@@ -47,19 +47,19 @@ public class OrderDTO {
         this.order_price = order_price;
     }
 
-    public User getCustomer() {
-        return customer;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomer(User customer) {
-        this.customer = customer;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public User getEmployee() {
-        return employee;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setEmployee(User employee) {
-        this.employee = employee;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 }
