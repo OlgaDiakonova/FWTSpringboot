@@ -16,7 +16,7 @@ public interface IOrderRepository extends JpaRepository<Order, Integer> {
             "FROM " +
             "Order o "+
             "WHERE " +
-            "o.customer.user_id = :id")
+            "o.customer.userId = :id")
     List<Order> findOrderByCustomerId(@Param("id") int id);
     List<Order> findOrderByEmployee(User employee);
 //    List<Order> findOrderByOrder_date(LocalDate orderDate);

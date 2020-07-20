@@ -28,7 +28,7 @@ public class ProductConverter {
     PropertyMap<Product, ProductDTO> productToDTOMapping = new PropertyMap<Product, ProductDTO>() {
         @Override
         protected void configure() {
-            map().setName(source.getProduct_name());
+            map().setName(source.getProductName());
             map().setDescription(source.getDescription());
             map().setPrice(source.getPrice());
         }
@@ -37,7 +37,7 @@ public class ProductConverter {
     PropertyMap<ProductDTO, Product> DTOToProductMapping = new PropertyMap<ProductDTO, Product>() {
         @Override
         protected void configure() {
-            map().setProduct_name(source.getName());
+            map().setProductName(source.getName());
             map().setDescription(source.getDescription());
             map().setPrice(source.getPrice());
         }

@@ -7,37 +7,55 @@ import java.util.List;
 public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int warehouse_id;
+    @Column(name = "warehouse_id")
+    private int warehouseId;
+    @Column(name = "warehouse_name")
     private String warehouseName;
 
     @OneToMany(mappedBy = "warehouse")
     private List<Product> productList;
-    private double weight_available;
+    @Column(name = "weight_available")
+    private double weightAvailable;
 
 //
 //    @OneToOne
 //    @JoinColumn(name = "location_id")
 //    private Location location;
 
+
     public Warehouse() {
-
     }
 
-    public int getWarehouse_id() {
-        return warehouse_id;
+    public int getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setWarehouse_id(int warehouse_id) {
-        this.warehouse_id = warehouse_id;
+    public void setWarehouseId(int warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
-    public double getWeight_available() {
-        return weight_available;
+    public String getWarehouseName() {
+        return warehouseName;
     }
 
-    public void setWeight_available(double weight_available) {
-        this.weight_available = weight_available;
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public double getWeightAvailable() {
+        return weightAvailable;
+    }
+
+    public void setWeightAvailable(double weightAvailable) {
+        this.weightAvailable = weightAvailable;
+    }
 }
 

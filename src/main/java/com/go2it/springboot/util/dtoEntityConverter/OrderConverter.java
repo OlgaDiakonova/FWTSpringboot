@@ -27,21 +27,21 @@ public class OrderConverter {
 
     PropertyMap<Order, OrderDTO> orderToDTOMapping = new PropertyMap<Order, OrderDTO>() {
         protected void configure() {
-            map().setOrder_id(source.getOrder_id());
-            map().setOrder_date(source.getOrder_date());
-            map().setOrder_price(source.getOrder_price());
-            map().setCustomerName(source.getCustomer().getFirst_name());
-            map().setEmployeeName(source.getEmployee().getFirst_name());
+            map().setOrderId(source.getOrderId());
+            map().setOrderDate(source.getOrderDate());
+            map().setOrderPrice(source.getOrderPrice());
+            map().setCustomerName(source.getCustomer().getFirstName());
+            map().setEmployeeName(source.getEmployee().getFirstName());
         }
     };
 
     PropertyMap<OrderDTO, Order> DTOToOrderMapping = new PropertyMap<OrderDTO, Order>() {
         protected void configure() {
-            map().setOrder_id(source.getOrder_id());
-            map().setOrder_date(source.getOrder_date());
-            map().setOrder_price(source.getOrder_price());
-            map().getCustomer().setFirst_name(source.getCustomerName());
-            map().getEmployee().setFirst_name(source.getEmployeeName());
+            map().setOrderId(source.getOrderId());
+            map().setOrderDate(source.getOrderDate());
+            map().setOrderPrice(source.getOrderPrice());
+            map().getCustomer().setFirstName(source.getCustomerName());
+            map().getEmployee().setFirstName(source.getEmployeeName());
         }
     };
 

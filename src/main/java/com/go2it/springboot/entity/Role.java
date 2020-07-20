@@ -7,25 +7,27 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int role_id;
-    private String role_name;
+    @Column(name = "role_id")
+    private int roleId;
+    @Column(name = "role_name")
+    private String roleName;
 
     public Role() {
     }
 
-    public int getRole_id() {
-        return role_id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRoleId(int role_id) {
+        this.roleId = role_id;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRoleName(String role_name) {
+        this.roleName = role_name;
     }
 }

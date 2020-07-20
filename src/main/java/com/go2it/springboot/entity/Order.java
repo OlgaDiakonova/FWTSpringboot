@@ -10,10 +10,13 @@ import java.util.Objects;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int order_id;
+    @Column(name = "order_id")
+    private int orderId;
     @Convert(converter = LocalDateAttributeConverter.class)
-    private LocalDate order_date;
-    private double order_price;
+    @Column(name = "order_date")
+    private LocalDate orderDate;
+    @Column(name = "order_price")
+    private double orderPrice;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -26,28 +29,28 @@ public class Order {
     public Order() {
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setOrderId(int order_id) {
+        this.orderId = order_id;
     }
 
-    public LocalDate getOrder_date() {
-        return order_date;
+    public LocalDate getOrderDate() {
+        return orderDate;
     }
 
-    public void setOrder_date(LocalDate order_date) {
-        this.order_date = order_date;
+    public void setOrderDate(LocalDate order_date) {
+        this.orderDate = order_date;
     }
 
-    public double getOrder_price() {
-        return order_price;
+    public double getOrderPrice() {
+        return orderPrice;
     }
 
-    public void setOrder_price(double order_price) {
-        this.order_price = order_price;
+    public void setOrderPrice(double order_price) {
+        this.orderPrice = order_price;
     }
 
     public User getCustomer() {
@@ -71,13 +74,13 @@ public class Order {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return getOrder_id() == order.getOrder_id() &&
-                Double.compare(order.getOrder_price(), getOrder_price()) == 0 &&
-                getOrder_date().equals(order.getOrder_date());
+        return getOrderId() == order.getOrderId() &&
+                Double.compare(order.getOrderPrice(), getOrderPrice()) == 0 &&
+                getOrderDate().equals(order.getOrderDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrder_id(), getOrder_date(), getOrder_price());
+        return Objects.hash(getOrderId(), getOrderDate(), getOrderPrice());
     }
 }

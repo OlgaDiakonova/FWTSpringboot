@@ -6,8 +6,10 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int product_id;
-    private String product_name;
+    @Column(name = "product_id")
+    private int productId;
+    @Column(name = "product_name")
+    private String productName;
     private double price;
     private String description;
 
@@ -18,20 +20,20 @@ public class Product {
     public Product() {
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProductId(int product_id) {
+        this.productId = product_id;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String product_name) {
+        this.productName = product_name;
     }
 
     public double getPrice() {

@@ -29,8 +29,8 @@ public class UserService implements IUserService {
     @Override
     public void save(UserDTO userDto) {
         User user = new User();
-        user.setFirst_name(userDto.getFirst_name());
-        user.setLast_name(userDto.getLast_name());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
         save(user);
     }
 

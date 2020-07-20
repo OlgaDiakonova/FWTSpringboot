@@ -25,16 +25,16 @@ public class UserConverter {
     PropertyMap<User, UserDTO> userToDTOMapping = new PropertyMap<User, UserDTO>() {
         @Override
         protected void configure() {
-            map().setFirst_name(source.getFirst_name());
-            map().setLast_name(source.getLast_name());
+            map().setFirstName(source.getFirstName());
+            map().setLastName(source.getLastName());
         }
     };
 
     PropertyMap<UserDTO, User> DTOToUserMapping = new PropertyMap<UserDTO, User>() {
         @Override
         protected void configure() {
-            map().setFirst_name(source.getFirst_name());
-            map().setLast_name(source.getLast_name());
+            map().setFirstName(source.getFirstName());
+            map().setLastName(source.getLastName());
         }
     };
 

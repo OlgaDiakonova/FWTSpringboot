@@ -8,10 +8,14 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_id;
-    private String first_name;
-    private String last_name;
-    private String phone_number;
+    @Column(name = "user_id")
+    private int userId;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     private String email;
     private String login;
     private String password;
@@ -29,36 +33,36 @@ public class User {
     public User() {
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int user_id) {
+        this.userId = user_id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phone_number) {
+        this.phoneNumber = phone_number;
     }
 
     public String getEmail() {
@@ -98,14 +102,14 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getUser_id() == user.getUser_id() &&
-                getFirst_name().equals(user.getFirst_name()) &&
-                getLast_name().equals(user.getLast_name());
+        return getUserId() == user.getUserId() &&
+                getFirstName().equals(user.getFirstName()) &&
+                getLastName().equals(user.getLastName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUser_id(), getFirst_name(), getLast_name());
+        return Objects.hash(getUserId(), getFirstName(), getLastName());
     }
 
         public List<Order> getCustomerOrders() {
