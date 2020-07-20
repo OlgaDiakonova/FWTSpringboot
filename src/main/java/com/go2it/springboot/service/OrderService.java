@@ -46,8 +46,8 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> findOrderByCustomerId(int id) {
-        User user = iUserRepository.findById(id).get();
-        return iOrderRepository.findOrderByCustomer(user);
+
+        return iOrderRepository.findOrderByCustomerId(id);
     }
 
     @Override
