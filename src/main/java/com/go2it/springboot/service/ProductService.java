@@ -4,6 +4,7 @@ import com.go2it.springboot.entity.Product;
 import com.go2it.springboot.entity.Warehouse;
 import com.go2it.springboot.entity.dto.ProductDTO;
 import com.go2it.springboot.repository.IProductRepository;
+import com.go2it.springboot.util.dtoEntityConverter.ProductConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,7 @@ public class ProductService implements IProductService {
 
     @Override
     public void save(ProductDTO productDto){
-        Product product = new Product();
-        product.setProduct_name(productDto.getName());
+        Product product = ProductConverter.convertDTOToProduct(productDto);
         save(product);
     }
 

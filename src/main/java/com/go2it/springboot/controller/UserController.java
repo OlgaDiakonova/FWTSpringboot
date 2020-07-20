@@ -2,13 +2,13 @@ package com.go2it.springboot.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.go2it.springboot.entity.Order;
-import com.go2it.springboot.entity.Role;
 import com.go2it.springboot.entity.User;
 import com.go2it.springboot.entity.dto.OrderDTO;
 import com.go2it.springboot.entity.dto.UserDTO;
 import com.go2it.springboot.service.IRoleService;
 import com.go2it.springboot.service.IUserService;
 import com.go2it.springboot.service.OrderService;
+import com.go2it.springboot.util.dtoEntityConverter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 
 @RestController
 public class UserController {
@@ -30,7 +28,7 @@ public class UserController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @PostMapping(value = "/user")
     public ResponseEntity<String> createUser(@RequestBody String userJson) throws IOException {
 
         if (userJson == null || userJson.isEmpty()) {
@@ -49,25 +47,14 @@ public class UserController {
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public String showUserLogin(@PathVariable String id) {
-        UserDTO userDto = new UserDTO();
-        String userFullName = "";
-//        Optional<User> user = userService.findById(Integer.valueOf(id));
-        userService.findById(Integer.valueOf(id)).ifPresent(user -> {
-            userDto.setFirst_name(user.getFirst_name());
-            userDto.setLast_name(user.getLast_name());
-        });
+    @GetMapping(value = "/users/{id}")
+    public ResponseEntity<UserDTO> showUserLogin(@PathVariable String id) {
 
-        if(userDto.getFirst_name() == null && userDto.getLast_name() == null){
-            userFullName = "Unknown User";
-        }else {
-            userFullName = userDto.getFirst_name() + " " + userDto.getLast_name();
+        try {
+            return new ResponseEntity<UserDTO>(UserConverter.convertUserToDTO(userService.findById(Integer.valueOf(id)).get()), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        String htmlText = "<div style=\"text-align:center;\">" + "<h1>You are logged in as " + userFullName + "</h1>" + "</div>";
-
-        return htmlText;
-
     }
 
     @RequestMapping(value = "/users/{id}/order", method = RequestMethod.POST)

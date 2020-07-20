@@ -1,8 +1,8 @@
 package com.go2it.springboot.controller;
 
-import com.go2it.springboot.entity.Product;
 import com.go2it.springboot.entity.dto.ProductDTO;
 import com.go2it.springboot.service.IProductService;
+import com.go2it.springboot.util.dtoEntityConverter.ProductConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,25 +15,22 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String getProductsFromResource() {
-        List<Product> productList = productService.findAll();
-        String htmlText = "<div style=\"text-align:center;\">" + "<h1>In our store you find the biggest variety of different kind of fish </h1>" + "</div>";
-        htmlText += "<ul>";
-
-        for (Product product : productList) {
-            htmlText += "<li>"+ product.getProduct_name() + "</li>";
-        };
-
-        htmlText += "</ul>";
-
-        return htmlText;
-
+    @GetMapping(value = "/products")
+    public ResponseEntity<List<ProductDTO>> getProductsFromResource() {
+        try {
+            return new ResponseEntity<>(ProductConverter.convertProductListToDTO(productService.findAll()), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ResponseEntity<String> createProduct(@RequestBody ProductDTO body){
-        productService.save(body);
-        return new ResponseEntity<String>(HttpStatus.OK);
+    @PostMapping(value = "/products")
+    public ResponseEntity<HttpStatus> createProduct(@RequestBody ProductDTO body){
+        try {
+            productService.save(body);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

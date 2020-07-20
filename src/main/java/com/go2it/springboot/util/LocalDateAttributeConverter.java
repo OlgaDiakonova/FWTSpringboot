@@ -1,4 +1,4 @@
-package com.go2it.springboot.converter;
+package com.go2it.springboot.util;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

@@ -1,11 +1,5 @@
 package com.go2it.springboot.entity;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.go2it.springboot.converter.LocalDateAttributeConverter;
+import com.go2it.springboot.util.LocalDateAttributeConverter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
