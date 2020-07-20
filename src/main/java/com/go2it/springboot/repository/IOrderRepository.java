@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IOrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findOrderByCustomer(User customer);
+    List<Order> findOrderByCustomerId(int id);
     List<Order> findOrderByEmployee(User employee);
 //    List<Order> findOrderByOrder_date(LocalDate orderDate);
 }

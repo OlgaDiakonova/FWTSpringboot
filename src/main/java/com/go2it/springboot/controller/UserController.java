@@ -8,6 +8,7 @@ import com.go2it.springboot.entity.dto.UserDTO;
 import com.go2it.springboot.service.IRoleService;
 import com.go2it.springboot.service.IUserService;
 import com.go2it.springboot.service.OrderService;
+import com.go2it.springboot.util.dtoEntityConverter.OrderConverter;
 import com.go2it.springboot.util.dtoEntityConverter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class UserController {
     public ResponseEntity<UserDTO> showUserLogin(@PathVariable String id) {
 
         try {
-            return new ResponseEntity<UserDTO>(UserConverter.convertUserToDTO(userService.findById(Integer.valueOf(id)).get()), HttpStatus.OK);
+            return new ResponseEntity<>(UserConverter.convertUserToDTO(userService.findById(Integer.valueOf(id)).get()), HttpStatus.OK);
         }catch (RuntimeException e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -75,38 +76,13 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/users/{id}/orders", method = RequestMethod.GET)
-    public String showOrdersByCustomerId(@PathVariable String id) {
-        List<OrderDTO> orderDtoList = new ArrayList<>();
-        String orderInfo = "";
-        AtomicReference<User> cust = new AtomicReference<>(new User());
-
-        userService.findById(Integer.valueOf(id)).ifPresent(customer -> cust.set(customer));
-
-        if (cust.get().getUser_id() != 0) {
-            for (Order item : cust.get().getCustomerOrders()) {
-                OrderDTO tempOrderDto = new OrderDTO();
-                tempOrderDto.setOrder_date(item.getOrder_date());
-                tempOrderDto.setOrder_price(item.getOrder_price());
-                tempOrderDto.setOrder_id(item.getOrder_id());
-                tempOrderDto.setCustomerName(item.getCustomer().getFirst_name() + " " + item.getCustomer().getLast_name());
-                orderDtoList.add(tempOrderDto);
-            }
-
-            for (OrderDTO orderDto : orderDtoList) {
-                orderInfo += "<li>" + orderDto.getOrder_id() + " " +
-                        orderDto.getOrder_date() + " " +
-                        orderDto.getOrder_price() + "</li>";
-            }
-        } else {
-            orderInfo = "There are no orders for this customer yet!";
-        }
-
-        String htmlText = "<div style=\"text-align:center;\">" + "<h1>Order information: </h1>" + "</div>" + orderInfo;
-
-        return htmlText;
+    @GetMapping(value = "/users/{id}/orders")
+    public ResponseEntity<List<OrderDTO>> showOrdersByCustomerId(@PathVariable String id) {
+       try{
+           return new ResponseEntity<>(OrderConverter.convertOrderListToDTO(orderService.findOrderByCustomerId(Integer.valueOf(id))), HttpStatus.OK);
+       }catch (RuntimeException e){
+           return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+       }
 
     }
-
-
 }

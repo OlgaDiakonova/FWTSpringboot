@@ -13,6 +13,7 @@ public interface IOrderService {
     void save(OrderDTO orderDto);
     List<Order> findAll();
     List<Order> findOrderByCustomer(User customer);
+    List<Order> findOrderByCustomerId(int id);
     List<Order> findOrderByEmployee(User employee);
 //    List<Order> findOrderByOrder_date(LocalDate orderDate);
 }
