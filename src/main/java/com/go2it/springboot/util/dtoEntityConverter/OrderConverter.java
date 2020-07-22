@@ -40,7 +40,9 @@ public class OrderConverter {
             map().setOrderId(source.getOrderId());
             map().setOrderDate(source.getOrderDate());
             map().setOrderPrice(source.getOrderPrice());
+//            String[] fullName = source.getCustomerName().split(" ", 2);
             map().getCustomer().setFirstName(source.getCustomerName());
+//            map().getCustomer().setLastName(fullName[1]);
             map().getEmployee().setFirstName(source.getEmployeeName());
         }
     };
