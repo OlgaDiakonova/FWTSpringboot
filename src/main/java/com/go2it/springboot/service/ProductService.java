@@ -22,6 +22,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Optional<Product> findProductByProductName(String name) {
+        return productRepository.findProductByProductName(name);
+    }
+
+    @Override
     public void save(Product product) {
         productRepository.save(product);
     }
@@ -41,4 +46,6 @@ public class ProductService implements IProductService {
     public List<Product> findAllByWarehouse(Warehouse wh) {
         return productRepository.findAllByWarehouse(wh);
     }
+
+
 }
