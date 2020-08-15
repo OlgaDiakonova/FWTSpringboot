@@ -1,6 +1,12 @@
 package com.go2it.springboot.entity;
 
+import com.go2it.springboot.util.OrderDetailsPK;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -17,8 +23,28 @@ public class Product {
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    public Product() {
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetails> ordersList;
+
+    public Product() {    }
+
+
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public List<OrderDetails> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<OrderDetails> ordersList) {
+        this.ordersList = ordersList;
+    }
+
 
     public int getProductId() {
         return productId;

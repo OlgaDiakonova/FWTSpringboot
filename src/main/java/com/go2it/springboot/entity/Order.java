@@ -1,9 +1,10 @@
 package com.go2it.springboot.entity;
 import com.go2it.springboot.util.LocalDateAttributeConverter;
+import com.go2it.springboot.util.OrderDetailsPK;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 
 @Entity
@@ -27,7 +28,18 @@ public class Order {
     @JoinColumn(name = "employee_id")
     private User employee;
 
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetails> productOrderDetails;
+
     public Order() {
+    }
+
+    public List<OrderDetails> getProductOrderDetails() {
+        return productOrderDetails;
+    }
+
+    public void setProductOrderDetails(List<OrderDetails> productOrderDetails) {
+        this.productOrderDetails = productOrderDetails;
     }
 
     public int getOrderId() {

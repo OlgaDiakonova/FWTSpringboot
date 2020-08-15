@@ -1,26 +1,28 @@
 package com.go2it.springboot.entity;
 
+import com.go2it.springboot.util.OrderDetailsPK;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_details")
-public class OrderDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class OrderDetails implements Serializable{
+    @EmbeddedId
+    private OrderDetailsPK id;
 
     private double weight;
     @Column(name = "total_price")
     private double totalPrice;
 
     @ManyToOne
+    @MapsId("product_id")
     @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
+    @MapsId("order_id")
     @JoinColumn(name = "order_id")
     private Order order;
 

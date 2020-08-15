@@ -14,11 +14,6 @@ public class OrderDetailsService implements IOrderDetailsService{
     private IOrderDetailsRepository orderDetailsRepository;
 
     @Override
-    public Optional<OrderDetails> findById(int id) {
-        return orderDetailsRepository.findById(id);
-    }
-
-    @Override
     public void save(OrderDetails od) {
         orderDetailsRepository.save(od);
     }
@@ -27,4 +22,5 @@ public class OrderDetailsService implements IOrderDetailsService{
     public List<OrderDetails> findOrderDetailsByOrderId(int id) {
         return orderDetailsRepository.findOrderDetailsByOrderId(id);
     }
+
 }
