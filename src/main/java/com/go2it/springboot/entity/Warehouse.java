@@ -17,10 +17,9 @@ public class Warehouse {
     @Column(name = "weight_available")
     private double weightAvailable;
 
-//
-//    @OneToOne
-//    @JoinColumn(name = "location_id")
-//    private Location location;
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
 
     public Warehouse() {

@@ -1,0 +1,28 @@
+package com.go2it.springboot.service;
+
+import com.go2it.springboot.entity.Country;
+import com.go2it.springboot.repository.ICountryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Optional;
+
+public class CountryService implements ICountryService {
+    @Autowired
+    private ICountryRepository iCountryRepository;
+
+    @Override
+    public Optional<Country> findById(String id) {
+        return iCountryRepository.findById(id);
+    }
+
+    @Override
+    public void save(Country country) {
+        iCountryRepository.save(country);
+    }
+
+    @Override
+    public List<Country> findAll() {
+        return iCountryRepository.findAll();
+    }
+}

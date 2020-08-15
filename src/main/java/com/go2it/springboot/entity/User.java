@@ -30,6 +30,9 @@ public class User {
     @OneToMany(mappedBy = "employee")
     private List<Order> employeeOrders;
 
+    @OneToMany(mappedBy = "user")
+    private List<Location> locations;
+
     public User() {
     }
 
@@ -127,4 +130,13 @@ public class User {
     public void setEmployeeOrders(List<Order> employeeOrders) {
         this.employeeOrders = employeeOrders;
     }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
+    }
+
 }
