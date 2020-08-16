@@ -31,6 +31,9 @@ public class Order {
     @OneToMany(mappedBy = "product")
     private List<OrderDetails> productOrderDetails;
 
+    @OneToMany(mappedBy = "order")
+    private List<Payment> paymentList;
+
     public Order() {
     }
 
@@ -80,6 +83,14 @@ public class Order {
 
     public void setEmployee(User employee) {
         this.employee = employee;
+    }
+
+    public List<Payment> getPaymentList() {
+        return paymentList;
+    }
+
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
     }
 
     @Override

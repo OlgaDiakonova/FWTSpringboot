@@ -3,10 +3,12 @@ package com.go2it.springboot.service;
 import com.go2it.springboot.entity.Location;
 import com.go2it.springboot.repository.ILocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class LocationService implements ILocationService {
     @Autowired
     private ILocationRepository iLocationRepository;

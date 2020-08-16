@@ -33,6 +33,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Location> locations;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Payment> customerPayments;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Payment> employeePayments;
+
     public User() {
     }
 
@@ -139,4 +145,19 @@ public class User {
         this.locations = locations;
     }
 
+    public List<Payment> getCustomerPayments() {
+        return customerPayments;
+    }
+
+    public void setCustomerPayments(List<Payment> customerPayments) {
+        this.customerPayments = customerPayments;
+    }
+
+    public List<Payment> getEmployeePayments() {
+        return employeePayments;
+    }
+
+    public void setEmployeePayments(List<Payment> employeePayments) {
+        this.employeePayments = employeePayments;
+    }
 }
