@@ -57,13 +57,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id}/order", method = RequestMethod.POST)
-    public ResponseEntity<String> createOrder(@RequestBody String orderJson, @PathVariable int id) throws IOException {
-        if (orderJson == null || orderJson.isEmpty()) {
+    public ResponseEntity<String> createOrder(@RequestBody String orderDTOJson, @PathVariable int id) throws IOException {
+        if (orderDTOJson == null || orderDTOJson.isEmpty()) {
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        Order order = objectMapper.readValue(orderJson, Order.class);
-        if (order != null) {
+        OrderDTO orderDTO = objectMapper.readValue(orderDTOJson, OrderDTO.class);
+        if (orderDTO != null) {
+            Order order = OrderConverter.convertDTOToOrder(orderDTO);
             userService.findById(id).ifPresent(customer -> {
                 order.setCustomer(customer);
             });

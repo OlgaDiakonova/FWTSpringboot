@@ -62,4 +62,15 @@ public class OrderDTO {
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "orderId=" + orderId +
+                ", orderDate=" + orderDate +
+                ", orderPrice=" + orderPrice +
+                ", customerName='" + customerName + '\'' +
+                ", employeeName='" + employeeName + '\'' +
+                '}';
+    }
 }

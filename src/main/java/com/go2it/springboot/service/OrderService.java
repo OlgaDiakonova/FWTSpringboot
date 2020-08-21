@@ -4,11 +4,10 @@ import com.go2it.springboot.entity.Order;
 import com.go2it.springboot.entity.User;
 import com.go2it.springboot.entity.dto.OrderDTO;
 import com.go2it.springboot.repository.IOrderRepository;
-import com.go2it.springboot.repository.IUserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +15,7 @@ import java.util.Optional;
 public class OrderService implements IOrderService {
     @Autowired
     private IOrderRepository iOrderRepository;
-    @Autowired
-    private IUserRepository iUserRepository;
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     @Override
     public Optional<Order> findById(int id) {
@@ -26,12 +24,24 @@ public class OrderService implements IOrderService {
 
     @Override
     public void save(Order order) {
-        iOrderRepository.save(order);
+        logger.info("Starting writing to order DB save(order = {})", order);
+        try {
+            iOrderRepository.save(order);
+            logger.info("Finish writing order to DB save(order = {})", order);
+        }catch (RuntimeException e){
+            logger.error("Repo threw exception while save( order = {}, and caused: {}", order, e.toString());
+        }
     }
 
     @Override
     public void save(OrderDTO orderDto) {
-
+        logger.info("Starting writing to order DB save(order = {})", orderDto);
+        try {
+            iOrderRepository.save(orderDto);
+            logger.info("Finish writing order to DB save(order = {})", orderDto);
+        }catch (RuntimeException e){
+            logger.error("Repo threw exception while save( order = {}, and caused: {}", orderDto, e.toString());
+        }
     }
 
     @Override

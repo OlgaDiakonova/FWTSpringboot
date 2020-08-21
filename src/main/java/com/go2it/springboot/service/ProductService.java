@@ -5,6 +5,8 @@ import com.go2it.springboot.entity.Warehouse;
 import com.go2it.springboot.entity.dto.ProductDTO;
 import com.go2it.springboot.repository.IProductRepository;
 import com.go2it.springboot.util.dtoEntityConverter.ProductConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class ProductService implements IProductService {
     @Autowired
     IProductRepository productRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     @Override
     public Optional<Product> findById(int id) {
@@ -33,8 +36,14 @@ public class ProductService implements IProductService {
 
     @Override
     public void save(ProductDTO productDto){
-        Product product = ProductConverter.convertDTOToProduct(productDto);
-        save(product);
+        logger.info("Starting writing to product DB save(productDto = {})", productDto);
+        try {
+            Product product = ProductConverter.convertDTOToProduct(productDto);
+            save(product);
+            logger.info("Finish writing product to DB save(productDto = {})", productDto);
+        }catch (RuntimeException e){
+            logger.error("Repo threw exception while save( productDto = {}, and caused: {}", productDto, e.toString());
+        }
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.go2it.springboot.entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.go2it.springboot.util.LocalDateAttributeConverter;
-import com.go2it.springboot.util.OrderDetailsPK;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +19,9 @@ public class Order {
     @Column(name = "order_id")
     private int orderId;
     @Convert(converter = LocalDateAttributeConverter.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @Column(name = "order_date")
     private LocalDate orderDate;
     @Column(name = "order_price")
@@ -106,5 +113,18 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(getOrderId(), getOrderDate(), getOrderPrice());
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderDate=" + orderDate +
+                ", orderPrice=" + orderPrice +
+                ", customer=" + customer +
+                ", employee=" + employee +
+                ", productOrderDetails=" + productOrderDetails +
+                ", paymentList=" + paymentList +
+                '}';
     }
 }
