@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.go2it.springboot.util.LocalDateAttributeConverter;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "orders")
+@Lazy(true)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -121,8 +123,8 @@ public class Order {
                 "orderId=" + orderId +
                 ", orderDate=" + orderDate +
                 ", orderPrice=" + orderPrice +
-                ", customer=" + customer +
-                ", employee=" + employee +
+                ", customer=" + customer.getLastName() +
+                ", employee=" + employee.getLastName() +
                 ", productOrderDetails=" + productOrderDetails +
                 ", paymentList=" + paymentList +
                 '}';

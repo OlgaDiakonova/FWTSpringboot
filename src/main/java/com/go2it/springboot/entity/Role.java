@@ -1,8 +1,11 @@
 package com.go2it.springboot.entity;
 
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 
 @Entity
+@Lazy(true)
 public class Role {
 
     @Id

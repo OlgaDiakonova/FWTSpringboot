@@ -4,11 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.go2it.springboot.entity.Order;
 import com.go2it.springboot.entity.User;
 import com.go2it.springboot.entity.dto.OrderDTO;
+import com.go2it.springboot.entity.dto.PaymentDTO;
 import com.go2it.springboot.entity.dto.UserDTO;
 import com.go2it.springboot.service.IRoleService;
 import com.go2it.springboot.service.IUserService;
 import com.go2it.springboot.service.OrderService;
+import com.go2it.springboot.service.PaymentService;
 import com.go2it.springboot.util.dtoEntityConverter.OrderConverter;
+import com.go2it.springboot.util.dtoEntityConverter.PaymentConverter;
 import com.go2it.springboot.util.dtoEntityConverter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,8 @@ public class UserController {
     private IRoleService roleService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private PaymentService paymentService;
 
     @PostMapping(value = "/user")
     public ResponseEntity<String> createUser(@RequestBody String userJson) throws IOException {
@@ -84,4 +89,16 @@ public class UserController {
        }
 
     }
+
+    @GetMapping(value = "/users/{id}/payments")
+    public ResponseEntity<List<PaymentDTO>> showPaymentsByCustomerId(@PathVariable String id) {
+        try{
+            return new ResponseEntity<>(PaymentConverter.convertPaymentListToDTO(paymentService.findPaymentByCustomerId(Integer.valueOf(id))), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
 }

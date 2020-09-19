@@ -1,10 +1,13 @@
 package com.go2it.springboot.entity;
 
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Lazy(true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -159,5 +162,18 @@ public class User {
 
     public void setEmployeePayments(List<Payment> employeePayments) {
         this.employeePayments = employeePayments;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

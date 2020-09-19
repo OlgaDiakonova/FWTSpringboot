@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.go2it.springboot.entity.OrderDetails;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class OrderDTO {
@@ -19,6 +21,7 @@ public class OrderDTO {
     private double orderPrice;
     private String customerName;
     private String employeeName;
+    private List<OrderDetailDTO> orderDetailDTOList;
 
     public OrderDTO() {
     }
@@ -63,6 +66,14 @@ public class OrderDTO {
         this.employeeName = employeeName;
     }
 
+    public List<OrderDetailDTO> getOrderDetailDTOList() {
+        return orderDetailDTOList;
+    }
+
+    public void setOrderDetailDTOList(List<OrderDetailDTO> orderDetailDTOList) {
+        this.orderDetailDTOList = orderDetailDTOList;
+    }
+
     @Override
     public String toString() {
         return "OrderDTO{" +
@@ -71,6 +82,7 @@ public class OrderDTO {
                 ", orderPrice=" + orderPrice +
                 ", customerName='" + customerName + '\'' +
                 ", employeeName='" + employeeName + '\'' +
+                ", orderDetailDTOList=" + orderDetailDTOList +
                 '}';
     }
 }

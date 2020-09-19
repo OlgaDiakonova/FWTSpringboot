@@ -1,7 +1,9 @@
 package com.go2it.springboot.util.dtoEntityConverter;
 
 import com.go2it.springboot.entity.Order;
+import com.go2it.springboot.entity.OrderDetails;
 import com.go2it.springboot.entity.dto.OrderDTO;
+import com.go2it.springboot.entity.dto.OrderDetailDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +16,17 @@ import java.util.stream.Collectors;
 public class OrderConverter {
 
     private static ModelMapper modelMapper;
+    //private OrderDetailsConverter orderDetailsConverter;
 
     public OrderConverter() {
     }
 
     @Autowired
-    public OrderConverter(ModelMapper modelMapper) {
+    public OrderConverter(ModelMapper modelMapper, OrderDetailsConverter orderDetailsConverter) {
         OrderConverter.modelMapper = modelMapper;
         modelMapper.addMappings(orderToDTOMapping);
         modelMapper.addMappings(DTOToOrderMapping);
+        //this.orderDetailsConverter = orderDetailsConverter;
     }
 
     PropertyMap<Order, OrderDTO> orderToDTOMapping = new PropertyMap<Order, OrderDTO>() {
@@ -32,6 +36,8 @@ public class OrderConverter {
             map().setOrderPrice(source.getOrderPrice());
             map().setCustomerName(source.getCustomer().getFirstName());
             map().setEmployeeName(source.getEmployee().getFirstName());
+//            List<OrderDetailDTO> odList = orderDetailsConverter.convertOrderDetailListToDTO(source.getProductOrderDetails());
+//            map().setOrderDetailDTOList(odList);
         }
     };
 
@@ -40,10 +46,9 @@ public class OrderConverter {
             map().setOrderId(source.getOrderId());
             map().setOrderDate(source.getOrderDate());
             map().setOrderPrice(source.getOrderPrice());
-//            String[] fullName = source.getCustomerName().split(" ", 2);
             map().getCustomer().setFirstName(source.getCustomerName());
-//            map().getCustomer().setLastName(fullName[1]);
             map().getEmployee().setFirstName(source.getEmployeeName());
+
         }
     };
 
